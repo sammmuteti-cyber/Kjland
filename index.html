@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="KJ Land Surveyors & Realtors Consultants — Kenya's premier ISK-registered land surveying firm."/>
+<title>KJ Land Surveyors & Realtors Consultants — Precision. Nationwide.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ivory:#f7f3ec;
+  --ivory2:#ede8df;
+  --ivory3:#e0d9cd;
+  --parchment:#d6cfc2;
+  --forest:#1a3028;
+  --forest2:#24432f;
+  --forest3:#2e5438;
+  --moss:#3d6b47;
+  --sage:#6b8f72;
+  --sage2:#8fb098;
+  --brass:#b8832a;
+  --brass2:#d4a045;
+  --brass3:#e8bc6a;
+  --gold:#f0cc88;
+  --ink:#0e1a14;
+  --ink2:#1a2a20;
+  --charcoal:#3a3a32;
+  --warm:#6b6355;
+  --warm2:#8c8070;
+  --warm3:#a89f92;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease2:cubic-bezier(.4,0,.2,1);
+  --pad:clamp(1.5rem,5vw,5rem);
+  --serif:'Playfair Display',serif;
+  --body:'Jost',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ivory);
+  color:var(--charcoal);
+  font-family:var(--body);
+  overflow-x:hidden;
+  cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* GRAIN */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9997;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;opacity:.028;mix-blend-mode:multiply;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--ivory2);}
+::-webkit-scrollbar-thumb{background:var(--forest);}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:1000;background:var(--brass);width:0;pointer-events:none;transition:width .1s linear;}
+
+/* CURSOR */
+#cur{position:fixed;inset:0;z-index:9999;pointer-events:none;}
+#cdot{width:5px;height:5px;background:var(--forest);border-radius:50%;position:absolute;transform:translate(-50%,-50%);}
+#cring{
+  width:28px;height:28px;
+  border:1.5px solid rgba(26,48,40,.4);
+  border-radius:50%;position:absolute;
+  transform:translate(-50%,-50%);
+  transition:width .35s var(--ease),height .35s var(--ease),border-color .3s,border-radius .3s,background .3s;
+}
+body.chov #cring{width:50px;height:50px;border-color:var(--brass);background:rgba(184,131,42,.06);}
+body.ctext #cring{width:2px;height:28px;border-radius:1px;border-color:var(--forest);}
+
+/* LOADER */
+#loader{
+  position:fixed;inset:0;z-index:9500;
+  background:var(--forest);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+}
+.ll{
+  font-family:var(--serif);font-size:clamp(5rem,12vw,9rem);
+  letter-spacing:-.02em;color:var(--ivory);
+  opacity:0;animation:fadeUp .8s .3s var(--ease) forwards;
+}
+.ll em{color:var(--brass2);font-style:italic;}
+.lb{width:120px;height:1px;background:rgba(247,243,236,.1);overflow:hidden;}
+.lp{height:100%;width:0;background:var(--brass2);animation:lprog 2s .5s var(--ease) forwards;}
+.lt{font-family:var(--mono);font-size:.48rem;letter-spacing:.5em;text-transform:uppercase;color:rgba(247,243,236,.35);opacity:0;animation:fadeUp .5s 1.6s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes lprog{to{width:100%;}}
+#loader.out{animation:fadeOut .6s forwards;pointer-events:none;}
+@keyframes fadeOut{to{opacity:0;}}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2rem var(--pad);
+  transition:padding .4s var(--ease),background .4s,box-shadow .4s;
+}
+nav.on{
+  padding:1rem var(--pad);
+  background:rgba(247,243,236,.95);
+  backdrop-filter:blur(24px) saturate(1.6);
+  box-shadow:0 1px 0 rgba(26,48,40,.08),0 4px 24px rgba(14,26,20,.06);
+}
+.nl{display:flex;align-items:center;gap:1rem;text-decoration:none;}
+.nm{
+  width:44px;height:44px;
+  background:var(--forest);
+  display:grid;place-items:center;
+  position:relative;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+  transition:background .3s;
+}
+nav.on .nm{background:var(--forest);}
+.nm span{font-family:var(--serif);font-size:1rem;color:var(--ivory);font-weight:700;letter-spacing:.05em;}
+.nt b{display:block;font-family:var(--serif);font-size:1rem;color:var(--forest);letter-spacing:.01em;line-height:1.2;font-weight:700;}
+.nt small{display:block;font-family:var(--mono);font-size:.42rem;letter-spacing:.32em;text-transform:uppercase;color:var(--warm2);}
+.nlinks{display:flex;align-items:center;gap:2.5rem;list-style:none;}
+.nlinks a{
+  font-family:var(--mono);font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--warm);text-decoration:none;transition:color .22s;position:relative;
+}
+nav:not(.on) .nlinks a{color:rgba(247,243,236,.6);}
+nav:not(.on) .nt b{color:var(--ivory);}
+nav:not(.on) .nt small{color:rgba(247,243,236,.35);}
+.nlinks a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;
+  background:var(--brass);transition:width .3s var(--ease);
+}
+.nlinks a:hover{color:var(--forest);}
+nav:not(.on) .nlinks a:hover{color:var(--ivory);}
+.nlinks a:hover::after{width:100%;}
+.ncta{
+  padding:.55rem 1.5rem!important;
+  background:var(--forest)!important;
+  color:var(--ivory)!important;
+  border:none!important;
+  font-family:var(--mono)!important;font-size:.5rem!important;letter-spacing:.24em!important;text-transform:uppercase!important;
+  position:relative!important;overflow:hidden!important;
+  transition:background .25s,transform .2s!important;
+  clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))!important;
+}
+.ncta::after{display:none!important;}
+.ncta:hover{background:var(--forest2)!important;transform:translateY(-2px)!important;}
+.nham{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none;}
+.nham span{width:22px;height:1.5px;background:var(--forest);transition:transform .3s,opacity .3s,background .3s;}
+nav:not(.on) .nham span{background:var(--ivory);}
+
+/* SHARED */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.9rem;
+  font-family:var(--mono);font-size:.46rem;letter-spacing:.48em;text-transform:uppercase;
+  color:var(--brass);margin-bottom:1.4rem;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--brass);}
+.eyebrow.forest{color:var(--forest);}
+.eyebrow.forest::before{background:var(--forest);}
+.sec-title{
+  font-family:var(--serif);
+  font-size:clamp(2.8rem,4vw,5rem);
+  line-height:.92;letter-spacing:-.02em;color:var(--forest);
+  font-weight:900;
+}
+.sec-title em{color:var(--brass);font-style:italic;}
+.sec-title .light{color:var(--ivory);font-style:normal;}
+.sec-title .light-em{color:var(--brass2);font-style:italic;}
+
+[data-r]{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+[data-r].in{opacity:1;transform:none;}
+[data-rl]{opacity:0;transform:translateX(-28px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+[data-rl].in{opacity:1;transform:none;}
+[data-rr]{opacity:0;transform:translateX(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+[data-rr].in{opacity:1;transform:none;}
+
+/* WHATSAPP */
+.wafloat{
+  position:fixed;bottom:2rem;right:2rem;z-index:799;
+  width:52px;height:52px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,.35);
+  transition:transform .3s var(--ease);cursor:none;
+  opacity:0;animation:fadeUp .5s 3s forwards;
+}
+.wafloat:hover{transform:scale(1.12);}
+.wafloat svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.waring{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(37,211,102,.5);animation:waring 2.5s ease-out infinite;}
+@keyframes waring{0%{transform:scale(1);opacity:.8;}100%{transform:scale(1.5);opacity:0;}}
+
+/* PHOTO PLACEHOLDER */
+.photo{position:relative;overflow:hidden;background:var(--ivory3);}
+.photo::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,#c8c0b0 0%,#b8b0a0 60%,#a8a090 100%);}
+.photo::after{
+  content:'PHOTO';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.46rem;letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(26,48,40,.25);
+  background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(26,48,40,.02) 8px,rgba(26,48,40,.02) 9px);
+}
+.photo-lbl{
+  position:absolute;bottom:.8rem;left:.8rem;z-index:3;
+  background:rgba(14,26,20,.85);backdrop-filter:blur(6px);
+  padding:.3rem .65rem;
+  font-family:var(--mono);font-size:.4rem;letter-spacing:.28em;text-transform:uppercase;color:var(--brass2);
+}
+
+/* BUTTONS */
+.btn{
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;gap:.85rem;
+  padding:1rem 2.4rem;
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  background:var(--forest);color:var(--ivory);
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  transition:background .25s,transform .2s var(--ease),box-shadow .2s;
+  box-shadow:0 4px 18px rgba(26,48,40,.2);
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 60%);
+  pointer-events:none;
+}
+.btn svg{width:11px;height:11px;position:relative;z-index:1;transition:transform .3s var(--ease);}
+.btn span{position:relative;z-index:1;}
+.btn:hover{background:var(--forest2);transform:translateY(-3px);box-shadow:0 10px 32px rgba(26,48,40,.3);}
+.btn:hover svg{transform:translateX(5px);}
+.btn:active{transform:translateY(1px);}
+.btn.brass{
+  background:var(--brass);color:var(--ink);
+  box-shadow:0 4px 18px rgba(184,131,42,.25);
+}
+.btn.brass:hover{background:var(--brass2);box-shadow:0 10px 32px rgba(184,131,42,.35);}
+.btn.outline{
+  background:transparent;color:var(--forest);
+  box-shadow:none;border:1.5px solid var(--forest);
+  clip-path:none;border-radius:0;
+}
+.btn.outline:hover{background:var(--forest);color:var(--ivory);}
+.btn.outline-light{
+  background:transparent;color:var(--ivory);
+  box-shadow:none;border:1.5px solid rgba(247,243,236,.4);
+  clip-path:none;
+}
+.btn.outline-light:hover{background:rgba(247,243,236,.1);border-color:var(--ivory);}
+
+/* ══════════════════════════════
+   HERO — editorial full-bleed
+══════════════════════════════*/
+#hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  background:var(--forest);
+  display:grid;grid-template-rows:1fr auto;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 40%,rgba(61,107,71,.35) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 80% at 15% 80%,rgba(184,131,42,.12) 0%,transparent 55%),
+    linear-gradient(160deg,#0e1a14 0%,#1a3028 40%,#24432f 70%,#1a3028 100%);
+}
+/* Topographic SVG lines */
+.hero-topo{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.07;}
+.hero-topo svg{width:100%;height:100%;}
+/* Decorative vertical rule */
+#hero::after{
+  content:'';position:absolute;
+  top:10%;bottom:10%;
+  right:42%;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(184,131,42,.4) 30%,rgba(184,131,42,.6) 50%,rgba(184,131,42,.4) 70%,transparent);
+  z-index:2;
+}
+.hero-inner{
+  position:relative;z-index:3;
+  display:grid;grid-template-columns:58fr 42fr;
+  min-height:100vh;
+  padding-top:7rem;
+}
+.hleft{
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:4rem var(--pad) 8rem;
+}
+/* Side label */
+.hside{
+  position:absolute;top:50%;left:1.8rem;
+  transform:translateY(-50%) rotate(180deg);
+  writing-mode:vertical-rl;
+  font-family:var(--mono);font-size:.42rem;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(247,243,236,.22);
+  display:flex;align-items:center;gap:.8rem;
+}
+.hside::after{content:'';width:1px;height:50px;background:rgba(247,243,236,.15);}
+/* Year badge */
+.htag{
+  display:inline-flex;align-items:center;gap:.8rem;
+  border:1px solid rgba(184,131,42,.35);
+  padding:.4rem 1rem;margin-bottom:2.2rem;
+  width:fit-content;
+  opacity:0;animation:fadeUp .7s .5s var(--ease) forwards;
+}
+.htagdot{width:5px;height:5px;border-radius:50%;background:var(--brass2);flex-shrink:0;}
+.htag span{font-family:var(--mono);font-size:.48rem;letter-spacing:.36em;text-transform:uppercase;color:var(--brass2);}
+/* Main headline */
+.hhed{
+  font-family:var(--serif);
+  font-size:clamp(4.5rem,8.5vw,12rem);
+  line-height:.85;letter-spacing:-.03em;
+  color:var(--ivory);
+  margin-bottom:2.4rem;
+}
+.hhed .row{display:block;overflow:hidden;}
+.hhed .row span{display:block;transform:translateY(110%);animation:hedup 1s var(--ease) forwards;}
+.hhed .row:nth-child(1) span{animation-delay:.5s;}
+.hhed .row:nth-child(2) span{animation-delay:.65s;}
+.hhed .row:nth-child(3) span{animation-delay:.8s;}
+.hhed em{color:var(--brass2);font-style:italic;}
+@keyframes hedup{to{transform:translateY(0);}}
+.hbody{
+  font-size:.95rem;line-height:1.85;
+  color:rgba(247,243,236,.6);
+  max-width:420px;margin-bottom:3rem;
+  padding-left:1.2rem;
+  border-left:2px solid rgba(184,131,42,.35);
+  opacity:0;animation:fadeUp .8s 1.1s var(--ease) forwards;
+  font-weight:300;letter-spacing:.01em;
+}
+.hcta{
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s 1.25s var(--ease) forwards;
+}
+/* Right panel */
+.hright{
+  position:relative;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:6rem 4rem 8rem 3rem;
+  gap:1.5rem;
+}
+/* Large photo */
+.hp-main{
+  width:100%;
+  aspect-ratio:3/4;
+  max-height:480px;
+  border-radius:2px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 0 1px rgba(184,131,42,.15);
+  opacity:0;animation:fadeUp .9s 1s var(--ease) forwards;
+}
+/* Floating chip */
+.hchip{
+  position:absolute;z-index:4;
+  background:rgba(14,26,20,.92);
+  border:1px solid rgba(184,131,42,.28);
+  padding:.65rem 1.1rem;
+  backdrop-filter:blur(12px);
+}
+.hchip.c1{bottom:10rem;right:1rem;}
+.hchip.c2{top:8rem;left:-1rem;}
+.hcl{font-family:var(--mono);font-size:.38rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,243,236,.35);display:block;margin-bottom:.15rem;}
+.hcv{font-family:var(--mono);font-size:.64rem;color:var(--brass2);}
+.hcv em{color:var(--sage2);font-style:normal;}
+/* Discount badge */
+.hdiscount{
+  position:absolute;top:7rem;right:-1.5rem;z-index:5;
+  width:88px;height:88px;
+  background:linear-gradient(135deg,var(--brass),var(--brass2));
+  border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(184,131,42,.4);
+  opacity:0;animation:fadeUp .8s 1.4s var(--ease) both;
+}
+.hdiscount .pct{font-family:var(--serif);font-size:1.6rem;color:var(--ink);line-height:1;font-weight:900;letter-spacing:-.02em;}
+.hdiscount .off{font-family:var(--mono);font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(14,26,20,.65);}
+/* Stats strip */
+.hstats{
+  position:absolute;bottom:0;left:0;right:0;z-index:4;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:rgba(14,26,20,.9);
+  backdrop-filter:blur(24px);
+  border-top:1px solid rgba(184,131,42,.18);
+}
+.hst{
+  padding:1.4rem 2rem;
+  border-right:1px solid rgba(184,131,42,.08);
+  cursor:default;
+  position:relative;overflow:hidden;
+  opacity:0;animation:fadeUp .5s var(--ease) forwards;
+  transition:background .3s;
+}
+.hst:last-child{border-right:none;}
+.hst:hover{background:rgba(36,67,47,.5);}
+.hst::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--brass);transition:width .5s var(--ease);}
+.hst:hover::after{width:100%;}
+.hst:nth-child(1){animation-delay:1.4s;}
+.hst:nth-child(2){animation-delay:1.55s;}
+.hst:nth-child(3){animation-delay:1.7s;}
+.hst:nth-child(4){animation-delay:1.85s;}
+.hstn{font-family:var(--serif);font-size:2.4rem;color:var(--ivory);line-height:1;font-weight:900;letter-spacing:-.02em;}
+.hstn sup{font-family:var(--mono);font-size:.72rem;color:var(--brass2);vertical-align:super;}
+.hstl{font-family:var(--mono);font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,243,236,.35);margin-top:.3rem;}
+
+/* TICKER */
+.tick{
+  background:var(--brass);
+  padding:.6rem 0;overflow:hidden;
+}
+.tickt{display:flex;white-space:nowrap;animation:tick 24s linear infinite;}
+.ticki{
+  display:inline-flex;align-items:center;gap:1.6rem;padding:0 1.6rem;
+  font-family:var(--mono);font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(14,26,20,.8);
+}
+.tickd{width:4px;height:4px;border-radius:50%;background:rgba(14,26,20,.35);flex-shrink:0;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════
+   SERVICES — editorial bento
+══════════════════════════════*/
+#services{
+  background:var(--ivory);
+  padding:8rem var(--pad) 0;
+}
+.svci{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  align-items:end;margin-bottom:5rem;
+  padding-bottom:4rem;
+  border-bottom:1px solid var(--ivory3);
+}
+.svcidesc{font-size:.92rem;color:var(--warm);line-height:1.9;align-self:end;font-weight:300;}
+
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;background:var(--ivory3);}
+.bc{
+  background:var(--ivory);padding:2.5rem;
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .35s;
+}
+.bc:hover{background:var(--ivory2);}
+.bc::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--brass),var(--brass2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease);
+}
+.bc:hover::after{transform:scaleX(1);}
+.bchero{
+  grid-column:1/6;grid-row:1/3;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--forest);min-height:520px;
+}
+.bchero:hover{background:var(--forest2);}
+.bchero::after{background:linear-gradient(90deg,var(--brass),var(--brass2));}
+.bchero .bcico{
+  width:56px;height:56px;
+  border:1px solid rgba(184,131,42,.25);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:2rem;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  transition:border-color .3s,background .3s;
+}
+.bchero:hover .bcico{border-color:var(--brass);background:rgba(184,131,42,.08);}
+.bchero .bcico svg{width:22px;height:22px;stroke:var(--brass2);fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.bchero .bcn{font-family:var(--mono);font-size:.44rem;letter-spacing:.28em;color:rgba(247,243,236,.3);margin-bottom:2.5rem;text-transform:uppercase;}
+.bchero .bct{font-family:var(--serif);font-size:clamp(2rem,3vw,3.5rem);letter-spacing:-.02em;color:var(--ivory);line-height:.9;margin-bottom:1.2rem;font-weight:900;}
+.bchero .bcp{font-size:.88rem;color:rgba(247,243,236,.55);line-height:1.88;max-width:320px;font-weight:300;}
+.bchero .bctag{
+  font-family:var(--mono);font-size:.44rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--brass2);border-top:1px solid rgba(184,131,42,.2);
+  padding-top:1.2rem;display:inline-block;
+}
+.bcsm{grid-column:span 4;}
+.bcwide{grid-column:6/13;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.bcn{font-family:var(--mono);font-size:.44rem;letter-spacing:.24em;color:var(--warm3);margin-bottom:1.5rem;text-transform:uppercase;}
+.bcico{
+  width:42px;height:42px;
+  border:1px solid var(--ivory3);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.2rem;
+  clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));
+  transition:border-color .3s,background .3s;
+}
+.bc:hover .bcico{border-color:var(--brass);background:rgba(184,131,42,.06);}
+.bcico svg{width:16px;height:16px;stroke:var(--forest);fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.bct{font-family:var(--serif);font-size:1.4rem;letter-spacing:-.01em;color:var(--forest);margin-bottom:.5rem;font-weight:700;}
+.bcp{font-size:.83rem;color:var(--warm);line-height:1.85;font-weight:300;}
+.bcarr{
+  position:absolute;bottom:1.6rem;right:1.6rem;
+  width:28px;height:28px;
+  border:1px solid var(--ivory3);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translate(4px,4px);
+  transition:opacity .28s,transform .28s,background .28s,border-color .28s;
+}
+.bc:hover .bcarr{opacity:1;transform:none;background:var(--forest);border-color:var(--forest);}
+.bcarr svg{width:10px;height:10px;stroke:#fff;fill:none;}
+
+/* MARQUEE */
+.mq{
+  overflow:hidden;padding:2rem 0;
+  border-top:1px solid var(--ivory3);border-bottom:1px solid var(--ivory3);
+  background:var(--ivory);
+}
+.mqt{display:flex;white-space:nowrap;gap:2.5rem;animation:mqroll 28s linear infinite;}
+.mqw{
+  font-family:var(--serif);font-size:3rem;
+  letter-spacing:-.01em;color:transparent;
+  -webkit-text-stroke:1px rgba(26,48,40,.1);
+  flex-shrink:0;font-style:italic;
+}
+.mqw.a{color:var(--brass);-webkit-text-stroke:0;opacity:.25;}
+@keyframes mqroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════
+   ABOUT — warm editorial
+══════════════════════════════*/
+#about{
+  position:relative;overflow:hidden;
+  padding:8rem var(--pad);
+  background:var(--ivory2);
+}
+.abghost{
+  position:absolute;right:-.05em;bottom:-.1em;
+  font-family:var(--serif);
+  font-size:clamp(18rem,30vw,46rem);
+  line-height:.75;color:transparent;
+  -webkit-text-stroke:1px rgba(26,48,40,.04);
+  letter-spacing:.02em;pointer-events:none;user-select:none;z-index:0;
+  font-weight:900;
+}
+.ab-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+/* Photo cluster */
+.ab-photos{position:relative;height:540px;}
+.ab-p1{position:absolute;top:0;left:0;width:65%;height:78%;border-radius:2px;overflow:hidden;box-shadow:0 24px 64px rgba(14,26,20,.18);}
+.ab-p2{position:absolute;bottom:0;right:0;width:52%;height:58%;border-radius:2px;overflow:hidden;box-shadow:0 18px 48px rgba(14,26,20,.15);border:5px solid var(--ivory2);}
+.ab-p3{position:absolute;top:38%;left:44%;width:30%;height:35%;border-radius:2px;overflow:hidden;box-shadow:0 12px 32px rgba(14,26,20,.15);border:3px solid var(--ivory2);}
+.ab-badge{
+  position:absolute;bottom:3rem;left:-.5rem;z-index:5;
+  background:var(--forest);padding:1rem 1.4rem;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);
+  display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;
+  box-shadow:0 8px 24px rgba(26,48,40,.25);
+}
+.ab-badge b{font-family:var(--serif);font-size:1.8rem;color:var(--brass2);line-height:1;font-weight:900;letter-spacing:.02em;}
+.ab-badge small{font-family:var(--mono);font-size:.42rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,243,236,.45);}
+.ab-year-badge{
+  position:absolute;top:.5rem;right:-.5rem;z-index:5;
+  width:78px;height:78px;
+  background:linear-gradient(135deg,var(--brass),var(--brass2));
+  border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 6px 22px rgba(184,131,42,.3);
+}
+.ab-year-badge b{font-family:var(--serif);font-size:1.5rem;color:var(--ink);line-height:1;font-weight:900;}
+.ab-year-badge small{font-family:var(--mono);font-size:.36rem;letter-spacing:.2em;color:rgba(14,26,20,.55);text-transform:uppercase;}
+.ab-content{display:flex;flex-direction:column;justify-content:center;}
+.ablead{font-size:.96rem;color:var(--warm);line-height:1.95;margin-top:1.2rem;margin-bottom:3rem;max-width:460px;font-weight:300;}
+.feats{display:flex;flex-direction:column;}
+.feat{
+  display:flex;gap:1.8rem;padding:1.4rem 0;
+  border-bottom:1px solid var(--ivory3);
+  transition:padding-left .3s var(--ease);cursor:default;
+}
+.feat:first-child{border-top:1px solid var(--ivory3);}
+.feat:hover{padding-left:.5rem;}
+.featno{
+  font-family:var(--serif);font-size:2rem;letter-spacing:-.02em;
+  color:var(--ivory3);flex-shrink:0;line-height:1;
+  transition:color .35s;min-width:40px;font-weight:900;
+}
+.feat:hover .featno{color:var(--brass);}
+.feath{font-family:var(--serif);font-size:1.15rem;letter-spacing:-.01em;color:var(--forest);margin-bottom:.25rem;font-weight:700;}
+.featp{font-size:.84rem;color:var(--warm);line-height:1.85;font-weight:300;}
+
+/* METRICS */
+.metrics{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;background:var(--ivory3);
+}
+.metric{
+  background:var(--forest);padding:2.8rem 2rem;
+  text-align:center;cursor:default;position:relative;
+  transition:background .35s;
+}
+.metric:hover{background:var(--forest2);}
+.metric::after{
+  content:'';position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%);width:0;height:2px;
+  background:var(--brass);transition:width .5s var(--ease);
+}
+.metric:hover::after{width:55%;}
+.mn{font-family:var(--serif);font-size:3rem;color:var(--ivory);line-height:1;font-weight:900;letter-spacing:-.02em;}
+.mn sup{font-family:var(--mono);font-size:.75rem;color:var(--brass2);vertical-align:super;}
+.ml{font-family:var(--mono);font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,243,236,.35);margin-top:.4rem;}
+
+/* ══════════════════════════════
+   PROCESS — station steps
+══════════════════════════════*/
+#process{
+  padding:8rem var(--pad);
+  background:var(--ivory);
+}
+.proch{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:7rem;}
+.procsub{font-size:.9rem;color:var(--warm);line-height:1.9;align-self:end;max-width:360px;font-weight:300;}
+.proctrack{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:2px;background:var(--ivory3);}
+.procline{
+  position:absolute;top:3.5rem;left:12.5%;right:12.5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,131,42,.4) 15%,rgba(184,131,42,.4) 85%,transparent);
+  pointer-events:none;z-index:1;
+}
+.procstep{
+  padding:3rem 2.5rem 3.5rem;text-align:center;
+  background:var(--ivory);
+  position:relative;transition:background .35s;
+}
+.procstep:hover{background:var(--ivory2);}
+.procnode{
+  width:68px;height:68px;
+  border:1.5px solid rgba(184,131,42,.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 2.8rem;
+  font-family:var(--serif);font-size:1.6rem;letter-spacing:-.01em;
+  color:var(--warm3);background:var(--ivory);
+  position:relative;z-index:2;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  transition:border-color .3s,color .3s,background .3s;
+  font-weight:900;
+}
+.procstep:hover .procnode{border-color:var(--brass);color:var(--brass);background:var(--ivory2);}
+.proctag{font-family:var(--mono);font-size:.42rem;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-bottom:.5rem;}
+.proctitle{font-family:var(--serif);font-size:1.5rem;letter-spacing:-.01em;color:var(--forest);margin-bottom:.7rem;font-weight:700;}
+.proctext{font-size:.83rem;color:var(--warm);line-height:1.9;font-weight:300;}
+
+/* ══════════════════════════════
+   PRICING
+══════════════════════════════*/
+#pricing{
+  padding:9rem var(--pad);position:relative;overflow:hidden;
+  background:var(--ivory2);
+}
+.pric-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(rgba(26,48,40,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(26,48,40,.03) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;
+}
+.pric-hd{text-align:center;margin-bottom:5rem;}
+.pric-hd .eyebrow{justify-content:center;}
+.pric-sub{font-size:.88rem;color:var(--warm);margin-top:.8rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8;font-weight:300;}
+.pric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ivory3);}
+.pcard{
+  background:var(--ivory);
+  position:relative;overflow:hidden;
+  transition:background .35s,box-shadow .35s;cursor:none;
+}
+.pcard:hover{background:var(--ivory2);box-shadow:0 20px 60px rgba(14,26,20,.1);}
+.pcard.featured{
+  background:var(--forest);
+  border:none;
+}
+.pcard.featured:hover{background:var(--forest2);}
+.pcard.featured::before{
+  content:'MOST POPULAR';position:absolute;top:0;left:0;right:0;
+  background:var(--brass);
+  font-family:var(--mono);font-size:.42rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--ink);padding:.38rem;text-align:center;z-index:5;
+}
+.pcard-photo{height:180px;position:relative;overflow:hidden;}
+.pcard.featured .pcard-photo{height:200px;}
+.pcard-body{padding:2rem 2.2rem 2.5rem;}
+.pcard.featured .pcard-body{padding-top:2.5rem;}
+.pcard-tier{font-family:var(--mono);font-size:.48rem;letter-spacing:.32em;text-transform:uppercase;color:var(--warm2);margin-bottom:.5rem;}
+.pcard.featured .pcard-tier{color:rgba(247,243,236,.4);}
+.pcard-price{display:flex;align-items:baseline;gap:.4rem;margin-bottom:1.5rem;}
+.pcard-price .currency{font-family:var(--mono);font-size:.88rem;color:var(--warm2);align-self:start;margin-top:.4rem;}
+.pcard-price .amount{font-family:var(--serif);font-size:3.2rem;color:var(--forest);line-height:1;letter-spacing:-.03em;font-weight:900;}
+.pcard.featured .pcard-price .amount{color:var(--brass2);}
+.pcard-price .period{font-family:var(--mono);font-size:.46rem;letter-spacing:.2em;color:var(--warm3);}
+.pcard.featured .pcard-price .period{color:rgba(247,243,236,.35);}
+.pcard-name{font-family:var(--serif);font-size:1.5rem;letter-spacing:-.01em;color:var(--forest);margin-bottom:1.5rem;font-weight:700;}
+.pcard.featured .pcard-name{color:var(--ivory);}
+.pcard-list{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem;}
+.pcard-list li{display:flex;align-items:center;gap:.7rem;font-size:.83rem;color:var(--warm);font-weight:300;}
+.pcard-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--forest);flex-shrink:0;}
+.pcard.featured .pcard-list li{color:rgba(247,243,236,.6);}
+.pcard.featured .pcard-list li::before{background:var(--brass2);}
+.pcard-list li.dim{color:var(--warm3);}
+.pcard-list li.dim::before{background:var(--ivory3);}
+
+/* ══════════════════════════════
+   TECHNOLOGY
+══════════════════════════════*/
+#technology{
+  padding:8rem var(--pad);
+  background:var(--ivory);
+}
+.techhd{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:5rem;}
+.techdesc{font-size:.9rem;color:var(--warm);line-height:1.9;align-self:end;font-weight:300;}
+.techrow{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--ivory3);}
+.tc{
+  background:var(--ivory2);padding:3rem 2rem;text-align:center;
+  position:relative;overflow:hidden;
+  transition:background .35s;cursor:none;
+}
+.tc:hover{background:var(--forest);}
+.tclabel{
+  position:absolute;top:0;left:0;right:0;
+  background:var(--brass);
+  font-family:var(--mono);font-size:.4rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink);padding:.3rem;
+  transform:translateY(-100%);transition:transform .32s var(--ease);
+}
+.tc:hover .tclabel{transform:translateY(0);}
+.tcico{
+  width:54px;height:54px;
+  border:1px solid var(--ivory3);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  transition:border-color .3s,background .3s;
+}
+.tc:hover .tcico{border-color:rgba(184,131,42,.4);background:rgba(184,131,42,.1);}
+.tcico svg{width:22px;height:22px;stroke:var(--forest);fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s;}
+.tc:hover .tcico svg{stroke:var(--brass2);}
+.tcname{font-family:var(--serif);font-size:1.05rem;letter-spacing:-.01em;color:var(--forest);margin-bottom:.3rem;font-weight:700;transition:color .3s;}
+.tc:hover .tcname{color:var(--ivory);}
+.tcsub{font-family:var(--mono);font-size:.42rem;letter-spacing:.22em;text-transform:uppercase;color:var(--warm3);transition:color .3s;}
+.tc:hover .tcsub{color:rgba(247,243,236,.4);}
+
+/* ══════════════════════════════
+   TESTIMONIALS
+══════════════════════════════*/
+#testimonials{
+  padding:9rem var(--pad);
+  background:var(--ivory2);
+}
+.testhd{display:grid;grid-template-columns:3fr 1fr;gap:2rem;align-items:end;margin-bottom:5rem;}
+.testcount{
+  font-family:var(--serif);font-size:5rem;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(26,48,40,.1);
+  letter-spacing:-.02em;line-height:1;text-align:right;font-weight:900;font-style:italic;
+}
+.testgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ivory3);align-items:start;}
+.tcard{
+  background:var(--ivory);position:relative;overflow:hidden;
+  transition:background .35s,box-shadow .35s;
+}
+.tcard:hover{background:var(--ivory2);box-shadow:0 8px 40px rgba(14,26,20,.08);}
+.tcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--brass),var(--brass2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease);
+}
+.tcard:hover::before{transform:scaleX(1);}
+.tcard:nth-child(2){margin-top:3rem;}
+.tcard-photo{height:140px;position:relative;overflow:hidden;}
+.tcard-body{padding:1.8rem 2.2rem 2.2rem;}
+.tcardq{font-family:var(--serif);font-size:4rem;line-height:.6;color:var(--brass);opacity:.2;margin-bottom:.5rem;font-style:italic;}
+.tcardstars{color:var(--brass2);font-size:.9rem;letter-spacing:.18em;margin-bottom:.7rem;}
+.tcardtext{
+  font-size:.95rem;font-style:italic;
+  font-family:'Instrument Serif',serif;
+  color:var(--charcoal);line-height:1.75;
+  margin-bottom:1.5rem;
+}
+.tcardname{font-family:var(--mono);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--forest);}
+.tcardrole{font-size:.78rem;color:var(--warm3);margin-top:.18rem;}
+
+/* ══════════════════════════════
+   FAQ
+══════════════════════════════*/
+#faq{
+  padding:9rem var(--pad);
+  background:var(--forest);
+}
+.faqinner{display:grid;grid-template-columns:5fr 7fr;gap:8rem;align-items:start;}
+.faqleft{position:sticky;top:8rem;}
+.faqleft .sec-title{color:var(--ivory);}
+.faqleft .sec-title .red{color:var(--brass2);font-style:normal;}
+.faqnote{font-size:.86rem;color:rgba(247,243,236,.45);line-height:1.9;margin-top:1.1rem;max-width:270px;font-weight:300;}
+.faqlinks{display:flex;flex-direction:column;gap:.75rem;margin-top:2.2rem;}
+.faqlinks a{
+  display:flex;align-items:center;gap:.75rem;
+  font-family:var(--mono);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(247,243,236,.4);text-decoration:none;transition:color .22s;
+}
+.faqlinks a:hover{color:var(--brass2);}
+.faqlinks svg{width:13px;height:13px;stroke:currentColor;fill:none;flex-shrink:0;}
+.faqbig{font-family:var(--serif);font-size:8rem;color:rgba(247,243,236,.04);line-height:.8;margin-top:2rem;letter-spacing:-.02em;pointer-events:none;font-weight:900;font-style:italic;}
+.faqlist{display:flex;flex-direction:column;}
+.faqitem{border-bottom:1px solid rgba(247,243,236,.07);overflow:hidden;}
+.faqitem:first-child{border-top:1px solid rgba(247,243,236,.07);}
+.faqq{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:1.5rem 0;cursor:none;
+  font-family:var(--serif);font-size:1.1rem;letter-spacing:-.01em;
+  color:var(--ivory);transition:color .22s;font-weight:700;
+}
+.faqq:hover{color:var(--brass2);}
+.faqico{
+  width:26px;height:26px;
+  border:1px solid rgba(247,243,236,.18);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:background .3s,border-color .3s,transform .4s var(--ease);
+}
+.faqitem.open .faqico{background:var(--brass);border-color:var(--brass);transform:rotate(45deg);}
+.faqico svg{width:10px;height:10px;stroke:rgba(247,243,236,.5);fill:none;}
+.faqitem.open .faqico svg{stroke:var(--ink);}
+.faqbody{max-height:0;overflow:hidden;transition:max-height .5s var(--ease);}
+.faqans{padding-bottom:1.5rem;font-size:.86rem;color:rgba(247,243,236,.45);line-height:1.95;font-weight:300;}
+
+/* ══════════════════════════════
+   CONTACT — 3-column newspaper
+══════════════════════════════*/
+#contact{background:var(--ivory);}
+.ctgrid{display:grid;grid-template-columns:4fr 5fr 3fr;}
+.ctbrand{
+  padding:7rem 3.5rem;
+  border-right:1px solid var(--ivory3);
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--ivory2);
+}
+.ctdesc{font-size:.9rem;color:var(--warm);line-height:1.95;margin-top:1.1rem;max-width:280px;font-weight:300;}
+.ctchannels{display:flex;flex-direction:column;gap:.7rem;margin-top:2.5rem;}
+.ctghost{
+  font-family:var(--serif);font-size:6rem;color:rgba(26,48,40,.05);
+  line-height:.8;margin-top:auto;letter-spacing:-.02em;pointer-events:none;font-weight:900;
+}
+.ch{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.85rem 1rem;text-decoration:none;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid transparent;position:relative;overflow:hidden;
+  transition:transform .22s,box-shadow .22s;cursor:none;
+}
+.ch::before{content:'';position:absolute;inset:0;transform:translateX(-101%);transition:transform .38s var(--ease);}
+.ch:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(14,26,20,.1);}
+.ch:hover::before{transform:translateX(0);}
+.chico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;}
+.chico svg{width:16px;height:16px;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.chbody{position:relative;z-index:1;}
+.chsm{display:block;font-size:.4rem;letter-spacing:.28em;opacity:.5;margin-bottom:.08rem;}
+.chbig{font-size:.66rem;letter-spacing:.06em;color:var(--forest);}
+.ch.wa{background:rgba(37,211,102,.06);border-color:rgba(37,211,102,.18);color:#1a8a44;}
+.ch.wa::before{background:rgba(37,211,102,.1);}
+.ch.wa .chico{background:rgba(37,211,102,.08);}
+.ch.wa svg{stroke:#25D366;}
+.ch.em{background:rgba(74,144,217,.06);border-color:rgba(74,144,217,.18);color:#2a5a9a;}
+.ch.em::before{background:rgba(74,144,217,.1);}
+.ch.em .chico{background:rgba(74,144,217,.08);}
+.ch.em svg{stroke:#4A90D9;}
+.ch.gm{background:rgba(184,131,42,.07);border-color:rgba(184,131,42,.2);color:var(--brass);}
+.ch.gm::before{background:rgba(184,131,42,.1);}
+.ch.gm .chico{background:rgba(184,131,42,.08);}
+.ch.gm svg{stroke:var(--brass);}
+.ctform{padding:7rem 4rem;border-right:1px solid var(--ivory3);}
+.ctform h3{font-family:var(--serif);font-size:2.2rem;letter-spacing:-.02em;color:var(--forest);margin-bottom:.4rem;font-weight:900;}
+.ctform p{font-size:.86rem;color:var(--warm);line-height:1.85;margin-bottom:2.2rem;font-weight:300;}
+.form{display:flex;flex-direction:column;gap:1rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{display:flex;flex-direction:column;gap:.4rem;}
+.fl{font-family:var(--mono);font-size:.42rem;letter-spacing:.32em;text-transform:uppercase;color:var(--warm3);}
+.fi,.fsel,.fta{
+  background:var(--ivory);border:1px solid var(--ivory3);
+  color:var(--charcoal);font-family:var(--body);font-size:.88rem;
+  padding:.8rem 1rem;outline:none;
+  transition:border-color .28s,background .28s,box-shadow .28s;
+  appearance:none;width:100%;
+}
+.fi:focus,.fsel:focus,.fta:focus{
+  border-color:var(--forest);background:var(--ivory2);
+  box-shadow:0 0 0 3px rgba(26,48,40,.06),0 4px 20px rgba(14,26,20,.06);
+}
+.fi::placeholder,.fta::placeholder{color:var(--warm3);}
+.fsel option{background:var(--ivory);}
+.fta{resize:vertical;min-height:100px;}
+.fsub{
+  display:flex;align-items:center;justify-content:center;gap:.75rem;
+  padding:1.1rem;border:none;color:var(--ivory);
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;
+  cursor:none;width:100%;position:relative;overflow:hidden;
+  background:var(--forest);
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+  transition:background .25s,transform .2s;
+}
+.fsub::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent);pointer-events:none;z-index:1;}
+.fsub span,.fsub svg{position:relative;z-index:2;}
+.fsub svg{width:13px;height:13px;transition:transform .3s var(--ease);}
+.fsub:hover{background:var(--forest2);transform:translateY(-2px);}
+.fsub:hover svg{transform:translateX(4px);}
+.fsub.loading{pointer-events:none;}
+.fsub.loading span,.fsub.loading svg{opacity:0;}
+@keyframes bspin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+.fsub.loading::before{
+  top:50%;left:50%;width:20px;height:20px;background:none;
+  border:2px solid rgba(255,255,255,.25);border-top-color:#fff;
+  border-radius:50%;inset:auto;
+  transform:translate(-50%,-50%);animation:bspin .75s linear infinite;opacity:1;
+}
+.fsub.success{background:var(--moss);}
+.ctside{padding:7rem 3rem;display:flex;flex-direction:column;background:var(--ivory2);}
+.ctdetail{
+  padding:1.5rem 0;border-bottom:1px solid var(--ivory3);
+  transition:padding-left .28s;
+}
+.ctdetail:last-child{border-bottom:none;}
+.ctdetail:hover{padding-left:.4rem;}
+.ctico{
+  width:30px;height:30px;
+  border:1px solid var(--ivory3);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:.7rem;
+  transition:border-color .28s,background .28s;
+}
+.ctdetail:hover .ctico{border-color:var(--brass);background:rgba(184,131,42,.06);}
+.ctico svg{width:12px;height:12px;stroke:var(--forest);fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.ctlbl{font-family:var(--mono);font-size:.4rem;letter-spacing:.28em;text-transform:uppercase;color:var(--warm3);display:block;margin-bottom:.12rem;}
+.ctval{font-size:.85rem;color:var(--charcoal);}
+
+/* PHOTO STRIP */
+.photo-strip{
+  background:var(--forest);padding:5rem var(--pad);
+}
+.photo-strip-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+.photo-strip-hd h3{font-family:var(--serif);font-size:2.2rem;letter-spacing:-.02em;color:var(--ivory);font-weight:700;}
+.photo-strip-hd a{
+  font-family:var(--mono);font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--brass2);text-decoration:none;transition:color .22s;
+}
+.photo-strip-hd a:hover{color:var(--gold);}
+.strip-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;}
+.strip-cell{aspect-ratio:1;position:relative;overflow:hidden;cursor:none;}
+.strip-cell .photo{width:100%;height:100%;transition:transform .4s var(--ease);}
+.strip-cell .photo::after{content:'+ UPLOAD';font-size:.36rem;}
+.strip-cell:hover .photo{transform:scale(1.06);}
+.strip-cell-over{position:absolute;inset:0;background:rgba(26,48,40,.55);opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center;}
+.strip-cell:hover .strip-cell-over{opacity:1;}
+.strip-cell-over svg{width:20px;height:20px;stroke:var(--ivory);fill:none;}
+
+/* NEWSLETTER */
+.newsbar{
+  background:var(--brass);padding:3.5rem var(--pad);
+  display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.12);
+}
+.newsbar-left h3{font-family:var(--serif);font-size:2.4rem;letter-spacing:-.02em;color:var(--ink);margin-bottom:.3rem;font-weight:900;}
+.newsbar-left p{font-size:.86rem;color:rgba(14,26,20,.6);line-height:1.6;}
+.newsbar-form{display:flex;gap:0;max-width:480px;width:100%;}
+.newsbar-form .ni{
+  flex:1;background:rgba(14,26,20,.1);
+  border:1px solid rgba(14,26,20,.2);border-right:none;
+  color:var(--ink);font-family:var(--body);font-size:.88rem;padding:.85rem 1.2rem;outline:none;
+  transition:background .25s;
+}
+.newsbar-form .ni::placeholder{color:rgba(14,26,20,.45);}
+.newsbar-form .ni:focus{background:rgba(14,26,20,.15);}
+.newsbar-form .nsub{
+  background:var(--forest);border:none;
+  padding:.85rem 1.8rem;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ivory);cursor:none;font-weight:500;
+  transition:background .22s;
+}
+.newsbar-form .nsub:hover{background:var(--forest2);}
+
+/* FOOTER */
+footer{background:var(--forest);border-top:1px solid rgba(247,243,236,.06);}
+.ftupper{
+  padding:5rem var(--pad);
+  display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:4rem;
+  border-bottom:1px solid rgba(247,243,236,.06);
+}
+.ftbname{font-family:var(--serif);font-size:1.2rem;color:var(--ivory);letter-spacing:.01em;display:block;margin:.9rem 0 .3rem;font-weight:700;}
+.ftbsub{font-family:var(--mono);font-size:.4rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,243,236,.3);}
+.ftbdesc{font-size:.8rem;color:rgba(247,243,236,.35);line-height:1.9;max-width:280px;margin-top:.85rem;font-weight:300;}
+.ftsoc{display:flex;gap:.7rem;margin-top:1.6rem;}
+.fsoc{
+  width:32px;height:32px;
+  border:1px solid rgba(247,243,236,.12);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  transition:background .28s,border-color .28s;
+}
+.fsoc:hover{border-color:var(--brass);background:rgba(184,131,42,.1);}
+.ftcol h5{font-family:var(--mono);font-size:.46rem;letter-spacing:.36em;text-transform:uppercase;color:var(--brass2);margin-bottom:1.3rem;}
+.ftcol ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.ftcol ul a{font-size:.8rem;color:rgba(247,243,236,.35);text-decoration:none;transition:color .22s;}
+.ftcol ul a:hover{color:var(--ivory);}
+.ftbar{
+  padding:2rem var(--pad);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem;
+}
+.ftcopy{font-family:var(--mono);font-size:.44rem;letter-spacing:.15em;color:rgba(247,243,236,.2);}
+.ftword{
+  font-family:var(--serif);font-size:2rem;letter-spacing:.08em;
+  color:rgba(247,243,236,.05);white-space:nowrap;
+  font-style:italic;font-weight:900;
+  transition:color .3s;
+}
+.ftword:hover{color:rgba(247,243,236,.12);}
+.ftlinks{display:flex;gap:2rem;list-style:none;justify-content:flex-end;}
+.ftlinks a{font-family:var(--mono);font-size:.44rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(247,243,236,.25);text-decoration:none;transition:color .22s;}
+.ftlinks a:hover{color:var(--brass2);}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .hero-inner{grid-template-columns:1fr;}.hright{display:none;}.hleft{min-height:100vh;padding:0 var(--pad) 10rem;justify-content:flex-end;}
+  .hstats{grid-template-columns:repeat(2,1fr);}
+  .bento{grid-template-columns:1fr 1fr;}.bchero{grid-column:1/3;grid-row:auto;}.bcsm{grid-column:span 1;}.bcwide{grid-column:1/3;grid-template-columns:1fr;}
+  .ab-inner{grid-template-columns:1fr;}.ab-photos{height:360px;}
+  .metrics{grid-template-columns:repeat(3,1fr);}
+  .proctrack{grid-template-columns:1fr 1fr;}.procline{display:none;}
+  .pric-grid{grid-template-columns:1fr;}
+  .techrow{grid-template-columns:repeat(3,1fr);}
+  .testgrid{grid-template-columns:1fr;}.tcard:nth-child(2){margin-top:0;}
+  .faqinner{grid-template-columns:1fr;gap:3rem;}.faqleft{position:relative;top:auto;}
+  .ctgrid{grid-template-columns:1fr;}.ctbrand{border-right:none;border-bottom:1px solid var(--ivory3);}.ctform{border-right:none;border-bottom:1px solid var(--ivory3);}
+  .ftupper{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .ftbar{grid-template-columns:1fr 1fr;}.ftword{display:none;}
+  .newsbar{grid-template-columns:1fr;}
+  .strip-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nlinks{display:none;}.nham{display:flex;}
+  .svci{grid-template-columns:1fr;}
+  .bento{grid-template-columns:1fr;}.bchero,.bcsm,.bcwide{grid-column:auto;}.bcwide{grid-template-columns:1fr;}
+  .proch{grid-template-columns:1fr;}.proctrack{grid-template-columns:1fr;}
+  .techhd{grid-template-columns:1fr;}.techrow{grid-template-columns:1fr 1fr;}
+  .testhd{grid-template-columns:1fr;}.testcount{display:none;}
+  .frow{grid-template-columns:1fr;}
+  .ctbrand,.ctform,.ctside{padding:5rem 1.5rem;}
+  .ftupper{grid-template-columns:1fr;}
+  .ftbar{grid-template-columns:1fr;gap:1rem;text-align:center;}.ftlinks{justify-content:center;}
+  .strip-grid{grid-template-columns:repeat(3,1fr);}
+  .newsbar-form{flex-direction:column;}.newsbar-form .ni{border-right:1px solid rgba(14,26,20,.2);}
+  body{cursor:auto;}#cur{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="loader">
+  <div class="ll">K<em>J</em></div>
+  <div class="lb"><div class="lp"></div></div>
+  <div class="lt">Initialising Survey Systems</div>
+</div>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+
+<a href="https://wa.me/254720397313?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20land%20survey%20services." target="_blank" rel="noopener" class="wafloat" title="+254 720 397 313" aria-label="WhatsApp">
+  <div class="waring"></div>
+  <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</a>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nl">
+    <div class="nm"><span>KJ</span></div>
+    <div class="nt"><b>KJ Land Surveyors</b><small>&amp; Realtors Consultants</small></div>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="ncta">Survey Now</a></li>
+  </ul>
+  <button class="nham" aria-label="Menu" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <!-- Topographic lines SVG -->
+  <div class="hero-topo">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100,400 Q200,350 400,420 T800,380 T1300,410" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".8"/>
+      <path d="M-100,360 Q150,300 350,380 T750,340 T1300,370" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".8"/>
+      <path d="M-100,440 Q250,400 450,460 T850,420 T1300,450" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".8"/>
+      <path d="M-100,320 Q100,250 300,340 T700,300 T1300,330" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".6"/>
+      <path d="M-100,480 Q300,450 500,500 T900,460 T1300,490" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".6"/>
+      <path d="M-100,280 Q50,200 250,300 T650,260 T1300,290" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".5"/>
+      <path d="M-100,520 Q350,500 550,540 T950,500 T1300,530" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".5"/>
+      <path d="M-100,240 Q0,150 200,260 T600,220 T1300,250" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".4"/>
+      <path d="M-100,560 Q400,540 600,580 T1000,540 T1300,570" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".4"/>
+      <path d="M-100,600 Q450,580 650,620 T1050,580 T1300,610" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".3"/>
+      <path d="M-100,200 Q-50,100 150,220 T550,180 T1300,210" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".3"/>
+      <path d="M200,50 Q350,150 300,300 T380,600 T350,800" fill="none" stroke="rgba(184,131,42,1)" stroke-width=".6"/>
+      <path d="M600,0 Q700,180 650,350 T680,650 T650,850" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".5"/>
+      <path d="M900,100 Q1000,250 950,400 T980,700" fill="none" stroke="rgba(247,243,236,1)" stroke-width=".4"/>
+    </svg>
+  </div>
+
+  <div class="hdiscount">
+    <span class="pct">24hr</span>
+    <span class="off">Quote</span>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hleft">
+      <div class="hside">ISK &middot; Est. 2014 &middot; Kenya</div>
+      <div class="htag"><span class="htagdot"></span><span>Kenya&apos;s #1 Certified Surveying Firm</span></div>
+      <h1 class="hhed">
+        <span class="row"><span>Precision</span></span>
+        <span class="row"><span><em>Land</em></span></span>
+        <span class="row"><span>Survey</span></span>
+      </h1>
+      <p class="hbody">Accurate, compliant, and nationwide land solutions &mdash; from millimetre-precise RTK GPS surveys to full title deed delivery. Based in Machakos Town, serving Nairobi Metro, the Coast, and all 47 counties of Kenya. Trusted by over 500 landowners since 2014.</p>
+      <div class="hcta">
+        <a href="#contact" class="btn brass"><span>Get Consultation</span><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#services" class="btn outline-light"><span>Our Services</span></a>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="hp-main photo">
+        <div class="photo-lbl">Survey Team in Field</div>
+      </div>
+      <div class="hchip c1"><span class="hcl">Accuracy</span><span class="hcv"><em>&plusmn;10mm</em> RTK GPS</span></div>
+      <div class="hchip c2"><span class="hcl">Coverage</span><span class="hcv">47 <em>Counties</em></span></div>
+    </div>
+  </div>
+
+  <div class="hstats">
+    <div class="hst"><div class="hstn">10<sup>+</sup></div><div class="hstl">Years Experience</div></div>
+    <div class="hst"><div class="hstn">500<sup>+</sup></div><div class="hstl">Plots Surveyed</div></div>
+    <div class="hst"><div class="hstn">47</div><div class="hstl">Counties Covered</div></div>
+    <div class="hst"><div class="hstn">100<sup>%</sup></div><div class="hstl">Legal Compliance</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="tick" aria-hidden="true"><div class="tickt">
+  <div class="ticki"><span class="tickd"></span>Land Subdivision</div><div class="ticki"><span class="tickd"></span>Beacon Setting</div><div class="ticki"><span class="tickd"></span>Title Deed Processing</div><div class="ticki"><span class="tickd"></span>GIS Mapping</div><div class="ticki"><span class="tickd"></span>Topographical Survey</div><div class="ticki"><span class="tickd"></span>Land Transfer</div><div class="ticki"><span class="tickd"></span>RTK GPS &middot; mm Accuracy</div><div class="ticki"><span class="tickd"></span>ISK Registered</div><div class="ticki"><span class="tickd"></span>47 Counties</div>
+  <div class="ticki"><span class="tickd"></span>Land Subdivision</div><div class="ticki"><span class="tickd"></span>Beacon Setting</div><div class="ticki"><span class="tickd"></span>Title Deed Processing</div><div class="ticki"><span class="tickd"></span>GIS Mapping</div><div class="ticki"><span class="tickd"></span>Topographical Survey</div><div class="ticki"><span class="tickd"></span>Land Transfer</div><div class="ticki"><span class="tickd"></span>RTK GPS &middot; mm Accuracy</div><div class="ticki"><span class="tickd"></span>ISK Registered</div><div class="ticki"><span class="tickd"></span>47 Counties</div>
+</div></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svci" data-r>
+    <div><div class="eyebrow">What We Offer</div><h2 class="sec-title">Our <em>Services</em></h2></div>
+    <p class="svcidesc">Comprehensive land solutions backed by precision RTK GPS, licensed surveyors, and complete legal compliance across all 47 counties of Kenya.</p>
+  </div>
+  <div class="bento" data-r>
+    <div class="bc bchero">
+      <div>
+        <div class="bcn">01 / 06</div>
+        <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21V11h6v10"/></svg></div>
+        <div class="bct">Land<br>Subdivision</div>
+        <p class="bcp">We subdivide land into legally compliant, properly registered plots. Ministry of Lands-approved mutation documents and county approvals handled end-to-end.</p>
+      </div>
+      <span class="bctag">Mutation &middot; Registration &middot; County Approvals</span>
+    </div>
+    <div class="bc bcsm">
+      <div class="bcn">02 / 06</div>
+      <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div class="bct">Beacon Setting</div>
+      <p class="bcp">RTK GPS beacons placed with millimetre precision &mdash; legally referenced to the national grid and defensible in any court.</p>
+      <div class="bcarr"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="bc bcsm">
+      <div class="bcn">03 / 06</div>
+      <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+      <div class="bct">Title Deed Processing</div>
+      <p class="bcp">Full lifecycle management &mdash; survey plans, LCB applications, Lands Registry lodgement. Fast, hassle-free delivery.</p>
+      <div class="bcarr"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="bc bcsm">
+      <div class="bcn">04 / 06</div>
+      <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="bct">Land Transfer</div>
+      <p class="bcp">Stamp duty, LCB hearings, and final registration &mdash; protecting your interests at every step of ownership transfer.</p>
+      <div class="bcarr"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="bc bcwide">
+      <div>
+        <div class="bcn">05 / 06</div>
+        <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+        <div class="bct">GIS Mapping</div>
+        <p class="bcp">Georeferenced maps for planning, EIAs, infrastructure &mdash; referenced to Kenya&apos;s national coordinate system.</p>
+      </div>
+      <div>
+        <div class="bcn">06 / 06</div>
+        <div class="bcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 17l4-8 4 5 3-3 4 6"/><path d="M3 3v18h18"/></svg></div>
+        <div class="bct">Topographical Survey</div>
+        <p class="bcp">Contours, spot heights, and drone photogrammetry &mdash; essential for architects planning construction or earthworks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq" aria-hidden="true"><div class="mqt">
+  <span class="mqw">Precision</span><span class="mqw a">&#x2736;</span><span class="mqw">Accuracy</span><span class="mqw a">&#x2736;</span><span class="mqw">Compliance</span><span class="mqw a">&#x2736;</span><span class="mqw">Kenya</span><span class="mqw a">&#x2736;</span><span class="mqw">Trusted</span><span class="mqw a">&#x2736;</span>
+  <span class="mqw">Precision</span><span class="mqw a">&#x2736;</span><span class="mqw">Accuracy</span><span class="mqw a">&#x2736;</span><span class="mqw">Compliance</span><span class="mqw a">&#x2736;</span><span class="mqw">Kenya</span><span class="mqw a">&#x2736;</span><span class="mqw">Trusted</span><span class="mqw a">&#x2736;</span>
+</div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="abghost">KJ</div>
+  <div class="ab-inner">
+    <div class="ab-photos" data-rl>
+      <div class="ab-p1 photo"><div class="photo-lbl">KJ Survey Team</div></div>
+      <div class="ab-p2 photo"><div class="photo-lbl">Field Operations</div></div>
+      <div class="ab-p3 photo"><div class="photo-lbl">Title Delivery</div></div>
+      <div class="ab-badge"><b>ISK</b><small>Registered</small></div>
+      <div class="ab-year-badge"><b>25</b><small>Years</small></div>
+    </div>
+    <div class="ab-content" data-rr>
+      <div class="eyebrow">Why Choose Us</div>
+      <h2 class="sec-title">Built On<br><em>Precision</em></h2>
+      <p class="ablead">KJ Land Surveyors has been Kenya&apos;s trusted partner since 2014 &mdash; based in Machakos Town and operating across Nairobi Metro, the Coast, and all 47 counties. Advanced technology, deep local knowledge, legally watertight results, on time.</p>
+      <div class="feats">
+        <div class="feat"><div class="featno">01</div><div><div class="feath">Millimetre-Grade RTK GPS</div><p class="featp">Sub-centimetre horizontal accuracy certified to national geodetic standards &mdash; standing in any legal dispute or government review.</p></div></div>
+        <div class="feat"><div class="featno">02</div><div><div class="feath">100% ISK &amp; Ministry Compliance</div><p class="featp">Fully licensed. All documents prepared to exact regulatory specifications &mdash; accepted first time, every time.</p></div></div>
+        <div class="feat"><div class="featno">03</div><div><div class="feath">Machakos, Nairobi &amp; Beyond</div><p class="featp">Our home base is Machakos Town. We operate across Matuu, Nairobi Metro, Mavoko, Kitengela, Juja, Ruiru, the Coastal region, and all 47 counties nationwide.</p></div></div>
+        <div class="feat"><div class="featno">04</div><div><div class="feath">End-to-End Ownership</div><p class="featp">Consultation to title collection under one roof. No subcontracting, no handoffs, full accountability.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics" data-r>
+  <div class="metric"><div class="mn" data-count="10"><sup>+</sup></div><div class="ml">Years Experience</div></div>
+  <div class="metric"><div class="mn" data-count="500"><sup>+</sup></div><div class="ml">Plots Surveyed</div></div>
+  <div class="metric"><div class="mn" data-count="47"></div><div class="ml">Counties Covered</div></div>
+  <div class="metric"><div class="mn" data-count="100"><sup>%</sup></div><div class="ml">Legal Compliance</div></div>
+  <div class="metric"><div class="mn" data-count="24"><sup>hr</sup></div><div class="ml">Quote Turnaround</div></div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proch" data-r>
+    <div><div class="eyebrow">How It Works</div><h2 class="sec-title">Our <em>Process</em></h2></div>
+    <p class="procsub">A clear four-step engagement from first contact to title delivery &mdash; you always know exactly where your project stands.</p>
+  </div>
+  <div class="proctrack" data-r>
+    <div class="procline"></div>
+    <div class="procstep">
+      <div class="procnode">I</div>
+      <div class="proctag">Step One</div>
+      <div class="proctitle">Consultation</div>
+      <p class="proctext">We review your title, existing survey plans, and objectives. Issues identified early, scope confirmed, timeline agreed before any fieldwork begins.</p>
+    </div>
+    <div class="procstep">
+      <div class="procnode">II</div>
+      <div class="proctag">Step Two</div>
+      <div class="proctitle">Site Survey</div>
+      <p class="proctext">Licensed surveyors deploy with Trimble RTK GPS and total stations. Every corner and boundary measured with millimetre precision.</p>
+    </div>
+    <div class="procstep">
+      <div class="procnode">III</div>
+      <div class="proctag">Step Three</div>
+      <div class="proctitle">Data Processing</div>
+      <p class="proctext">Raw field data processed with industry-leading software. Certified survey plans reviewed by a senior surveyor before any government submission.</p>
+    </div>
+    <div class="procstep">
+      <div class="procnode">IV</div>
+      <div class="proctag">Step Four</div>
+      <div class="proctitle">Title Delivery</div>
+      <p class="proctext">We lodge all documents and follow up proactively. When your title deed is ready, we deliver it directly to you &mdash; job complete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pric-bg"></div>
+  <div class="pric-hd" data-r>
+    <div class="eyebrow forest" style="justify-content:center;">Transparent Rates</div>
+    <h2 class="sec-title">Survey <em>Packages</em></h2>
+    <p class="pric-sub">Final pricing varies by plot size, location, and complexity. Contact us for a precise written quote within 24 hours.</p>
+  </div>
+  <div class="pric-grid" data-r>
+    <div class="pcard">
+      <div class="pcard-photo photo"><div class="photo-lbl">Boundary Survey</div></div>
+      <div class="pcard-body">
+        <div class="pcard-tier">Starter Package</div>
+        <div class="pcard-price"><span class="currency">KES</span><span class="amount">Ask</span><span class="period">/plot</span></div>
+        <div class="pcard-name">Beacon Setting</div>
+        <ul class="pcard-list">
+          <li>RTK GPS boundary survey</li><li>Up to 4 beacons set</li><li>Certified field notes</li><li>Survey report</li>
+          <li class="dim">Mutation filing</li><li class="dim">Title deed processing</li>
+        </ul>
+        <a href="#contact" class="btn" style="width:100%;justify-content:center;padding:.9rem;clip-path:none;"><span>Get Quote</span></a>
+      </div>
+    </div>
+    <div class="pcard featured">
+      <div class="pcard-photo photo"><div class="photo-lbl">Land Subdivision</div></div>
+      <div class="pcard-body">
+        <div class="pcard-tier">Most Popular</div>
+        <div class="pcard-price"><span class="currency">KES</span><span class="amount">Ask</span><span class="period">/project</span></div>
+        <div class="pcard-name">Subdivision Package</div>
+        <ul class="pcard-list">
+          <li>Full plot subdivision</li><li>Mutation document prep</li><li>County approvals managed</li><li>LCB application filing</li><li>Registry lodgement</li><li>Survey certificate</li>
+        </ul>
+        <a href="#contact" class="btn brass" style="width:100%;justify-content:center;padding:.9rem;clip-path:none;"><span>Get Quote</span></a>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-photo photo"><div class="photo-lbl">Full Title Service</div></div>
+      <div class="pcard-body">
+        <div class="pcard-tier">Complete Service</div>
+        <div class="pcard-price"><span class="currency">KES</span><span class="amount">Ask</span><span class="period">/project</span></div>
+        <div class="pcard-name">Title Deed Package</div>
+        <ul class="pcard-list">
+          <li>Everything in Standard</li><li>Stamp duty assessment</li><li>Consent applications</li><li>Full Lands Registry</li><li>Title deed collection</li><li>GIS map included</li>
+        </ul>
+        <a href="#contact" class="btn" style="width:100%;justify-content:center;padding:.9rem;clip-path:none;"><span>Get Quote</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <div class="techhd" data-r>
+    <div><div class="eyebrow">Our Arsenal</div><h2 class="sec-title">Cutting-Edge <em>Technology</em></h2></div>
+    <p class="techdesc">We invest in the best survey instruments to ensure precision, repeatability, and legal defensibility across every project.</p>
+  </div>
+  <div class="techrow" data-r>
+    <div class="tc"><div class="tclabel">Sub-cm Precision</div><div class="tcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="tcname">Trimble RTK GPS</div><div class="tcsub">Survey Systems</div></div>
+    <div class="tc"><div class="tclabel">Georeferenced Data</div><div class="tcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 7l9-4 9 4-9 4-9-4zM3 12l9 4 9-4M3 17l9 4 9-4"/></svg></div><div class="tcname">ArcGIS &amp; QGIS</div><div class="tcsub">GIS Mapping</div></div>
+    <div class="tc"><div class="tclabel">Angular Precision</div><div class="tcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="tcname">Leica Total Station</div><div class="tcsub">Field Equipment</div></div>
+    <div class="tc"><div class="tclabel">5cm Ortho Accuracy</div><div class="tcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="tcname">DJI Phantom Drone</div><div class="tcsub">Aerial Photogrammetry</div></div>
+    <div class="tc"><div class="tclabel">Certified Drawings</div><div class="tcico"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div><div class="tcname">AutoCAD Survey</div><div class="tcsub">Plans &amp; Drawings</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testhd" data-r>
+    <div><div class="eyebrow">Client Voices</div><h2 class="sec-title">What Our <em>Clients Say</em></h2></div>
+    <div class="testcount">500+</div>
+  </div>
+  <div class="testgrid" data-r>
+    <div class="tcard">
+      <div class="tcard-photo photo"><div class="photo-lbl">James Mwangi</div></div>
+      <div class="tcard-body">
+        <div class="tcardq">&ldquo;</div>
+        <div class="tcardstars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="tcardtext">KJ completed our 5-acre subdivision in Kiambu in under three weeks. Beacons perfectly placed, mutation documents ready fast &mdash; completely stress-free throughout.</p>
+        <div class="tcardname">James Mwangi</div>
+        <div class="tcardrole">Kiambu County &middot; Land Subdivision</div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-photo photo"><div class="photo-lbl">Grace Njeri</div></div>
+      <div class="tcard-body">
+        <div class="tcardq">&ldquo;</div>
+        <div class="tcardstars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="tcardtext">A boundary dispute dragging on two years was resolved in court within a month after KJ produced certified boundary records. Extremely professional and thorough.</p>
+        <div class="tcardname">Grace Njeri</div>
+        <div class="tcardrole">Nakuru County &middot; Beacon Setting</div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-photo photo"><div class="photo-lbl">Peter Otieno</div></div>
+      <div class="tcard-body">
+        <div class="tcardq">&ldquo;</div>
+        <div class="tcardstars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="tcardtext">KJ handled everything from stamp duty to Lands Registry lodgement. We received our title deed in record time and the team kept us updated at every single step.</p>
+        <div class="tcardname">Peter Otieno</div>
+        <div class="tcardrole">Nairobi &middot; Title Deed Processing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faqinner">
+    <div class="faqleft" data-rl>
+      <div class="eyebrow" style="color:var(--brass2);">Common Questions</div>
+      <h2 class="sec-title"><span class="light">Frequently<br>Asked</span> <span class="light-em">Questions</span></h2>
+      <p class="faqnote">Can&apos;t find what you need? Reach out and we&apos;ll respond within 24 hours.</p>
+      <div class="faqlinks">
+        <a href="https://wa.me/254720397313" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>+254 720 397 313 / 0751 365 080</a>
+        <a href="mailto:kjsurveyors1@gmail.com"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>kjsurveyors1@gmail.com</a>
+      </div>
+      <div class="faqbig">06</div>
+    </div>
+    <div class="faqlist" data-rr>
+      <div class="faqitem"><div class="faqq">How long does a land subdivision take?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">A straightforward subdivision typically takes 3&ndash;6 weeks from field survey to final title registration. We provide a clear timeline estimate at consultation.</p></div></div>
+      <div class="faqitem"><div class="faqq">What documents do I need to start?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">Your original title deed or certificate of lease, national ID or passport, KRA PIN certificate, and any existing survey plans. We review all documents at consultation.</p></div></div>
+      <div class="faqitem"><div class="faqq">Do you operate outside Nairobi?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">Yes &mdash; our head office is in Machakos Town. We actively cover Machakos County, Matuu, Nairobi Metro, Mavoko/Athi River, Kitengela, Juja, Ruiru, Ukunda, Diani, Kwale, and extend to all 47 counties with advance notice.</p></div></div>
+      <div class="faqitem"><div class="faqq">How accurate are your GPS surveys?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">Our Trimble RTK GPS achieves &plusmn;10mm horizontal and &plusmn;20mm vertical accuracy &mdash; exceeding the minimum standards set by the Survey Act of Kenya and ISK.</p></div></div>
+      <div class="faqitem"><div class="faqq">Can you help resolve a boundary dispute?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">Yes. We produce certified boundary records admissible in court and at the Land Disputes Tribunal &mdash; documenting measurements, methodology, and findings with full legal rigour.</p></div></div>
+      <div class="faqitem"><div class="faqq">How do I get a quote?<div class="faqico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faqbody"><p class="faqans">WhatsApp us on +254 720 397 313 or call +254 751 365 080. You can also use the contact form below. Share your title deed, land description, and service needed &mdash; we&apos;ll reply with a detailed quote within 24 hours.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ctgrid">
+    <div class="ctbrand" data-rl>
+      <div>
+        <div class="eyebrow">Reach Out</div>
+        <h2 class="sec-title">Start Your<br><em>Project</em></h2>
+        <p class="ctdesc">We respond to all enquiries within 24 hours. Choose your preferred channel below.</p>
+        <div class="ctchannels">
+          <a href="https://wa.me/254720397313?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20land%20survey%20services." target="_blank" rel="noopener" class="ch wa">
+            <div class="chico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+            <div class="chbody"><span class="chsm">Chat on WhatsApp</span><span class="chbig">+254 720 397 313</span></div>
+          </a>
+          <a href="tel:+254751365080" class="ch wa" style="--wa:#1a8a44;">
+            <div class="chico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15z"/></svg></div>
+            <div class="chbody"><span class="chsm">Call us directly</span><span class="chbig">+254 751 365 080</span></div>
+          </a>
+          <a href="mailto:kjsurveyors1@gmail.com" class="ch em">
+            <div class="chico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="chbody"><span class="chsm">Email us</span><span class="chbig">kjsurveyors1@gmail.com</span></div>
+          </a>
+          <a href="https://maps.google.com/?q=Quickmart+Building+Machakos+Town+Kenya" target="_blank" rel="noopener" class="ch gm">
+            <div class="chico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="chbody"><span class="chsm">Quickmart Bldg, 3rd Floor, Rm 9</span><span class="chbig">Machakos Town</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="ctghost">KJ</div>
+    </div>
+    <div class="ctform" data-r>
+      <h3>Tell us about your land.</h3>
+      <p>We&apos;ll reply with a detailed quote within 24 hours.</p>
+      <form class="form" onsubmit="return false;">
+        <div class="frow">
+          <div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" placeholder="John Kamau"/></div>
+          <div class="fg"><label class="fl">Phone Number</label><input class="fi" type="tel" placeholder="+254 720 000 000"/></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">County</label><input class="fi" type="text" placeholder="e.g. Nairobi, Kiambu…"/></div>
+          <div class="fg"><label class="fl">Plot Size</label><input class="fi" type="text" placeholder="e.g. 0.5 acres, 50×100…"/></div>
+        </div>
+        <div class="fg"><label class="fl">Service Required</label>
+          <select class="fsel"><option value="" disabled selected>Select a service</option><option>Land Subdivision</option><option>Beacon Setting / Boundary Survey</option><option>Title Deed Processing</option><option>Land Transfer</option><option>GIS Mapping</option><option>Topographical Survey</option><option>Boundary Dispute Resolution</option><option>Other — describe below</option></select>
+        </div>
+        <div class="fg"><label class="fl">Message</label><textarea class="fta" placeholder="Describe your land and what you need…"></textarea></div>
+        <button class="fsub" type="submit"><span>Send Enquiry</span><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
+    </div>
+    <div class="ctside" data-rr>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><span class="ctlbl">Head Office</span><span class="ctval">Quickmart Building, 3rd Floor, Room 9<br><small style="font-size:.78rem;color:var(--warm3);">Alongside Bus Station, Machakos Town</small><br><small style="font-size:.78rem;color:var(--warm3);">P.O. Box 3354–90100, Machakos</small></span></div>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="ctlbl">Working Hours</span><span class="ctval">Mon–Sat, 8am–6pm</span></div>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15z"/></svg></div><span class="ctlbl">Phone</span><span class="ctval"><a href="tel:+254720397313" style="color:inherit;text-decoration:none;">+254 720 397 313</a><br><a href="tel:+254751365080" style="color:inherit;text-decoration:none;font-size:.82rem;color:var(--warm3);">+254 751 365 080</a></span></div>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span class="ctlbl">Email</span><span class="ctval"><a href="mailto:kjsurveyors1@gmail.com" style="color:inherit;text-decoration:none;">kjsurveyors1@gmail.com</a></span></div>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div><span class="ctlbl">Areas of Operation</span><span class="ctval" style="font-size:.82rem;line-height:1.8;">Machakos &amp; Matuu &middot; Nairobi Metro<br>Mavoko / Athi River &middot; Kitengela<br>Juja / Ruiru &middot; Diani / Ukunda / Kwale<br><span style="color:var(--brass);font-weight:500;">All 47 Counties Nationwide</span></span></div>
+      <div class="ctdetail"><div class="ctico"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="ctlbl">Certification</span><span class="ctval">ISK Registered &middot; Ministry Approved</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip" data-r>
+  <div class="photo-strip-hd">
+    <h3>Our Work in the Field</h3>
+    <a href="#contact">Upload Your Photos &rarr;</a>
+  </div>
+  <div class="strip-grid">
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 01</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 02</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 03</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 04</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 05</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 06</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 07</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+    <div class="strip-cell"><div class="photo" style="width:100%;height:100%;"><div class="photo-lbl">Site 08</div></div><div class="strip-cell-over"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div></div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsbar">
+  <div class="newsbar-left">
+    <h3>Stay Updated on Land Matters</h3>
+    <p>Land law changes, survey tips, and KJ news &mdash; delivered to your inbox.</p>
+  </div>
+  <div class="newsbar-form">
+    <input class="ni" type="email" placeholder="Enter your email address…"/>
+    <button class="nsub" type="button">Subscribe Now</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftupper">
+    <div>
+      <div class="nm" style="display:inline-grid;"><span>KJ</span></div>
+      <span class="ftbname">KJ Land Surveyors</span>
+      <span class="ftbsub">&amp; Realtors Consultants</span>
+      <p class="ftbdesc">Kenya&apos;s premier ISK-registered land surveying and realty consultancy. Precision GPS surveys, title deed processing, GIS mapping &mdash; based in Machakos Town, serving Nairobi Metro, the Coast, and all 47 counties since 2014.</p>
+      <div class="ftsoc">
+        <a href="https://wa.me/254720397313" target="_blank" rel="noopener" class="fsoc" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="14" height="14" stroke="#25D366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="mailto:kjsurveyors1@gmail.com" class="fsoc" aria-label="Email"><svg viewBox="0 0 24 24" width="14" height="14" stroke="#d4a045" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      </div>
+    </div>
+    <div class="ftcol"><h5>Services</h5><ul><li><a href="#services">Land Subdivision</a></li><li><a href="#services">Beacon Setting</a></li><li><a href="#services">Title Deed Processing</a></li><li><a href="#services">Land Transfer</a></li><li><a href="#services">GIS Mapping</a></li><li><a href="#services">Topographical Survey</a></li></ul></div>
+    <div class="ftcol"><h5>Company</h5><ul><li><a href="#about">About Us</a></li><li><a href="#process">Our Process</a></li><li><a href="#technology">Technology</a></li><li><a href="#testimonials">Client Stories</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div class="ftcol"><h5>Contact</h5><ul><li><a href="tel:+254720397313">+254 720 397 313</a></li><li><a href="tel:+254751365080">+254 751 365 080</a></li><li><a href="mailto:kjsurveyors1@gmail.com">kjsurveyors1@gmail.com</a></li><li><a href="https://maps.google.com/?q=Quickmart+Building+Machakos" target="_blank">Machakos Town, 3rd Floor</a></li><li><a href="#contact">Mon–Sat, 8am–6pm</a></li></ul></div>
+  </div>
+  <div class="ftbar">
+    <p class="ftcopy">&copy; 2026 KJ Land Surveyors &amp; Realtors Consultants &middot; ISK Registered &middot; Machakos, Kenya</p>
+    <span class="ftword">KJ Land Surveyors</span>
+    <ul class="ftlinks"><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul>
+  </div>
+</footer>
+
+<script>
+/* LOADER */
+window.addEventListener('load',()=>{setTimeout(()=>{const l=document.getElementById('loader');l.classList.add('out');setTimeout(()=>l.remove(),700);},2300);});
+
+/* PROGRESS */
+window.addEventListener('scroll',()=>{document.getElementById('prog').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+
+/* CURSOR */
+const cdot=document.getElementById('cdot'),cring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cdot.style.left=mx+'px';cdot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'));});
+document.querySelectorAll('input,textarea,select').forEach(el=>{el.addEventListener('focus',()=>document.body.classList.add('ctext'));el.addEventListener('blur',()=>document.body.classList.remove('ctext'));});
+
+/* NAV */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',window.scrollY>60));
+
+/* HAMBURGER */
+document.getElementById('hamBtn').addEventListener('click',function(){
+  const links=nav.querySelector('.nlinks');
+  const open=links.style.display==='flex';
+  links.style.cssText=open?'':'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(247,243,236,.98);padding:2rem;gap:1.5rem;z-index:799;backdrop-filter:blur(20px);border-bottom:1px solid var(--ivory3);';
+  if(!open){[...links.querySelectorAll('a')].forEach(a=>{a.style.color='var(--warm)';});}
+});
+
+/* CARD SPOTLIGHT */
+document.querySelectorAll('.bc').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--cx',((e.clientX-r.left)/r.width*100)+'%');c.style.setProperty('--cy',((e.clientY-r.top)/r.height*100)+'%');});});
+
+/* SCROLL REVEAL */
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');[...e.target.querySelectorAll('[data-r],[data-rl],[data-rr]')].forEach((k,i)=>setTimeout(()=>k.classList.add('in'),(i+1)*100));ro.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('[data-r],[data-rl],[data-rr]').forEach(el=>ro.observe(el));
+
+/* METRIC COUNTERS */
+const mo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,target=+el.dataset.count,sup=el.querySelector('sup'),suffix=sup?sup.outerHTML:'';let cur=0;const tn=document.createTextNode('0');el.innerHTML='';el.appendChild(tn);if(sup)el.insertAdjacentHTML('beforeend',suffix);const id=setInterval(()=>{cur+=target/55;if(cur>=target){cur=target;clearInterval(id);}tn.nodeValue=Math.floor(cur);},16);mo.unobserve(el);}});},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>mo.observe(el));
+
+/* FAQ */
+document.querySelectorAll('.faqq').forEach(q=>{q.addEventListener('click',()=>{const item=q.parentElement,isOpen=item.classList.contains('open');document.querySelectorAll('.faqitem.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faqbody').style.maxHeight='0';});if(!isOpen){item.classList.add('open');const b=item.querySelector('.faqbody');b.style.maxHeight=b.scrollHeight+'px';}});});
+const fi=document.querySelector('.faqitem');if(fi){fi.classList.add('open');fi.querySelector('.faqbody').style.maxHeight='400px';}
+
+/* FORM */
+const fsub=document.querySelector('.fsub');
+if(fsub){fsub.addEventListener('click',function(){if(this.classList.contains('loading')||this.classList.contains('success'))return;this.classList.add('loading');const sp=this.querySelector('span'),sv=this.querySelector('svg');if(sp)sp.style.opacity='0';if(sv)sv.style.opacity='0';const btn=this;setTimeout(()=>{btn.classList.remove('loading');btn.classList.add('success');if(sp){sp.textContent='Enquiry Sent ✓';sp.style.opacity='1';}if(sv)sv.style.display='none';},2200);});}
+
+/* NEWSLETTER */
+document.querySelector('.nsub')?.addEventListener('click',function(){this.textContent='Subscribed ✓';this.style.background='var(--moss)';this.style.color='var(--ivory)';});
+</script>
+</body>
+</html>
+
